@@ -1,0 +1,35 @@
+## Make Cache Matrix
+
+makeCacheMatrix <- function(x = matrix()) {
+## initialization of invMatrix
+
+        cacheMatrix <- NULL  
+## define matrix 
+        setMatrix <- function(y) {
+                x <<- y
+                cacheMatrix <<- NULL
+        }
+## define the methods
+        getMatrix <- function() x
+        setCache <- function(inverse) cacheMatrix <<- inverse
+
+        getCache <- function() cacheMatrix
+## list all methods
+        list(setMatrix = setMatrix, getMatrix = getMatrix,
+             setCache = setCache,
+             getCache = getCache)
+}
+
+cacheSolve <- function(x, ...) {
+        cacheMatrix <- x$getCache()
+        if(!is.null(cacheMatrix)) {
+                message("getting cache data")
+                return(cacheMatrix)
+        }
+else {
+        data <- x$getMatrix()
+        cacheMatrix <- mean(data, ...)
+        x$setCache(cacheMatrix)
+        return(cacheMatrix)
+}
+}
